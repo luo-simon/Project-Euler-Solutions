@@ -1,4 +1,4 @@
-"# Project-Euler-Solutions" 
+# Project-Euler-Solutions 
 
 > My solutions for Project Euler challenges, written C++
 
