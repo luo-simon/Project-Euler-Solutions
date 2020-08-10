@@ -1,6 +1,6 @@
 # Project-Euler-Solutions 
 
-*N.B. Spoilers (obviously)! Please have a go at the challenges yourself before viewing my solutions - they're great fun.*
+*N.B. Spoilers (obviously)! Please [have a go at the challenges yourself](https://projecteuler.net) before viewing my solutions - they're great fun.*
 
 -------------------------------------------------------------------
 
