@@ -2,7 +2,7 @@
 
 *N.B. Spoilers (obviously)! Please have a go at the challenges yourself before viewing my solutions - they're great fun.*
 
-===
+-------------------------------------------------------------------
 
 > My solutions for Project Euler challenges, written C++
 
