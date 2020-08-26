@@ -1,5 +1,5 @@
 *.exe
-.vscode
-*.h
 *.txt
 *.py
+.vscode
+InfInt.h

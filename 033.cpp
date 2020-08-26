@@ -12,13 +12,32 @@
 
 #include <iostream>
 #include <time.h>
+#include "useful.h"
 
 using namespace std;
 
 int main(){
     clock_t tStart = clock();
+
+    int productNumerator = 1;
+    int productDenominator = 1;
     
-    
+    for (int d = 10; d < 100; d++){
+        for (int n = 10; n < d; n++){
+            for (int i = 1; i < 10; i++){
+                int nUnits = n % 10;
+                int nTens = n / 10;
+                int dUnits = d % 10;
+                int dTens = d / 10;
+                if (dTens == i && nUnits == i && (float)nTens/dUnits == (float)n/d){
+                    productNumerator *= n;
+                    productDenominator *= d;
+                }
+            }   
+        }
+    }
+
+    cout << productDenominator / gcd(productNumerator, productDenominator) << endl;
 
     printf("Time taken: %.3fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
     return 0;
