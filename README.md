@@ -10,4 +10,4 @@ Although Python is my main programming language, C++ is commonly used for algori
 
 --------------------------------------------------------------------
 
-For some of the later problems, I've included a (header file)[../useful.h] that I made, containing several useful functions, with code accumulated from previous problems.
+For some of the later problems, I've included a (header file)[../blob/master/useful.h] that I made, containing several useful functions, with code accumulated from previous problems.
