@@ -2,4 +2,4 @@
 .vscode
 *.h
 *.txt
-template.cpp
+*.py
