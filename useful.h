@@ -2,13 +2,12 @@
 
 #include <iostream>
 #include <math.h>
+#include <set>
 using namespace std;
 
+// Returns the greatest common divisor (using Euclid's algorithm)
+// given that a >= b
 int gcd(int a, int b) {
-    // Returns the greatest common divisor 
-    // (using Euclid's algorithm)
-    // given that a >= b
-
     if (a <= 0 || b <= 0){
         cout << "[!] gcd(a,b): Ensure that a and b are positive integers" << endl;
         return 0;
@@ -26,21 +25,19 @@ int gcd(int a, int b) {
     return gcd(b, r);
 }
 
-bool isPalindrome(int n){
-    string str = to_string(n);
-    int len = str.length();
+bool isPalindrome(string n){
+    int len = n.length();
     for (int i = 0; i <= len/2; i++)
     {
-        if (str[i] != str[len-1-i]){
+        if (n[i] != n[len-1-i]){
             return false;
         }
     }
     return true;
 }
 
+// Returns n! as long as n! is under 8 bytes (18,446,744,073,709,551,615)
 unsigned long long int factorial(int n){
-    // Returns n! as long as n! is under 8 bytes (18,446,744,073,709,551,615)
-
     if (n > 20){
         cout << "[!] factorial(n): n! exceeds limit (unsigned long long int)" << endl;
         return 0;
@@ -55,8 +52,8 @@ unsigned long long int factorial(int n){
     return  p;
 }
 
+// Returns sum of all digits in n
 unsigned int digitsSum(int n){
-    // Returns sum of all digits in n
     unsigned int sum = 0;
     while (n > 0){
         sum += n % 10;
@@ -65,8 +62,8 @@ unsigned int digitsSum(int n){
     return sum;
 }
 
+// Returns the number of digits in n
 int digitsCount(int n){
-    // Returns the number of digits in n
     int count = 0;
     while (n > 0){
         count++;
@@ -75,21 +72,22 @@ int digitsCount(int n){
     return count;
 }
 
+// Takes in boolean array (initialised to 0) and finds primes (via sieve)
+// 1 means is not prime, 0 means is prime
 void sieveOfErasthones(bool *sieve, int size){
-    // 1 means is not prime, 0 means is prime
     sieve[0] = 1;
     sieve[1] = 1;
-    for (int prime = 2; prime < sqrt(size); prime++){
-        if (sieve[prime] == 0){
-            for (int i = prime*prime; i < size; i += prime)
+    for (int p = 2; p < sqrt(size); p++){
+        if (sieve[p] == 0){
+            for (int i = p*p; i < size; i += p)
                 sieve[i] = 1;
         }
     }
 }
 
+// Returns a to the power b,
+// given that a and b are natural numbers
 unsigned long long int powNat(int a, int b){
-    // Returns a to the power b,
-    // given that a and b are natural numbers
     if (a <= 0 || b <= 0){
         cout << "[!] powNat(a, b): Ensure a and b are natural numbers" << endl;
         return 0;
@@ -98,4 +96,55 @@ unsigned long long int powNat(int a, int b){
     for (int i = 0; i < b; i++)
         result *= a;
     return result;
+}
+
+string toBinary(int n){
+    string bStr;
+    if (n < 0){
+        cout << "[!] toBinary(n): Ensure n is not negative" << endl;
+        return 0;
+    }
+    if (n == 0)
+        return "0";
+    while (n > 0){
+        int r = n % 2;
+        bStr += r + '0'; // Converts digit to ascii character
+        n /= 2;
+        
+    }
+    return bStr;
+}
+
+// Checks the string uses all of the digits 1 to n exactly once
+bool isPandigital(string s, int n){
+    set<int> digits;
+    if (s.length() == n){
+        for (int i = 0; i < n; i++)
+            if (s[i] - '0' != 0 && s[i] <= n)
+                digits.insert(s[i] - '0');
+        if (digits.size() == n)
+            return true;
+    }
+    return false;
+}
+
+// Checks if number is prime via trial division
+// See https://en.wikipedia.org/wiki/Primality_test
+bool isPrime(int n){
+    // Corner cases 
+    if (n <= 1) 
+        return false; 
+    if (n <= 3) 
+        return true; 
+  
+    // This is checked so that we can skip 
+    // middle five numbers in below loop 
+    if (n % 2 == 0 || n % 3 == 0) 
+        return false; 
+  
+    for (int i = 5; i * i <= n; i = i + 6) 
+        if (n % i == 0 || n % (i + 2) == 0) 
+            return false; 
+  
+    return true;  
 }
