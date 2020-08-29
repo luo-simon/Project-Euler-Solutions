@@ -3,6 +3,7 @@
 #include <iostream>
 #include <math.h>
 #include <set>
+#include <sstream>
 using namespace std;
 
 // Returns the greatest common divisor (using Euclid's algorithm)
@@ -12,16 +13,12 @@ int gcd(int a, int b) {
         cout << "[!] gcd(a,b): Ensure that a and b are positive integers" << endl;
         return 0;
     }
-
     if (b > a)
         swap(a, b);
-
     int q = a / b;
     int r = a % b;
-    
     if (r == 0)
         return b; 
-    
     return gcd(b, r);
 }
 
@@ -29,9 +26,8 @@ bool isPalindrome(string n){
     int len = n.length();
     for (int i = 0; i <= len/2; i++)
     {
-        if (n[i] != n[len-1-i]){
+        if (n[i] != n[len-1-i])
             return false;
-        }
     }
     return true;
 }
@@ -45,7 +41,6 @@ unsigned long long int factorial(int n){
     if (n < 0){
         cout << "[!] factorial(n): n must be greater or equal to 0" << endl;
     }
-
     unsigned long long int p = 1; // N.B. 0! = 1
     for (int i = 2; i <= n; i++)
         p *= i;
@@ -85,6 +80,25 @@ void sieveOfErasthones(bool *sieve, int size){
     }
 }
 
+// Takes in set<unsigned int> and inserts primes up to limit
+// Slightly different to sieveOfErasthones() function
+void generatePrimes(set<unsigned int> &primes, unsigned int limit){
+    primes.insert(2);
+    for (int i = 3; i <= limit; i+= 2){
+        bool isPrime = true;
+        for (auto p : primes){
+            if (p*p > i)
+                break;
+            if (i % p == 0){
+                isPrime = false;
+                break;
+            }
+        }
+        if (isPrime)
+            primes.insert(i);
+    }
+}
+
 // Returns a to the power b,
 // given that a and b are natural numbers
 unsigned long long int powNat(int a, int b){
@@ -110,41 +124,67 @@ string toBinary(int n){
         int r = n % 2;
         bStr += r + '0'; // Converts digit to ascii character
         n /= 2;
-        
     }
     return bStr;
 }
 
-// Checks the string uses all of the digits 1 to n exactly once
-bool isPandigital(string s, int n){
-    set<int> digits;
-    if (s.length() == n){
-        for (int i = 0; i < n; i++)
-            if (s[i] - '0' != 0 && s[i] <= n)
-                digits.insert(s[i] - '0');
-        if (digits.size() == n)
-            return true;
+/* Old function for checking if number is pandigital */
+// // Checks the string uses all of the digits 1 to n exactly once
+// bool isPandigital(string s, int n){
+//     set<int> digits;
+//     if (s.length() == n){
+//         for (int i = 0; i < n; i++)
+//             if (s[i] - '0' != 0 && s[i] <= n)
+//                 digits.insert(s[i] - '0');
+//         if (digits.size() == n)
+//             return true;
+//     }
+//     return false;
+// }
+
+bool isPandigital(unsigned int n){
+    bool digits[] = {0,0,0,0,0,0,0,0,0};
+    int length = 0;
+    while (n != 0){
+        if (n % 10 == 0)
+            return false;
+        digits[(n % 10) - 1] = true;
+        n /= 10;
+        length++;
     }
-    return false;
+    if (length > 9) return false;
+    for (int i = 0; i < length; i++)
+        if (!digits[i]) return false;
+    return true;
 }
 
-// Checks if number is prime via trial division
-// See https://en.wikipedia.org/wiki/Primality_test
-bool isPrime(int n){
-    // Corner cases 
-    if (n <= 1) 
-        return false; 
-    if (n <= 3) 
-        return true; 
-  
-    // This is checked so that we can skip 
-    // middle five numbers in below loop 
-    if (n % 2 == 0 || n % 3 == 0) 
-        return false; 
-  
-    for (int i = 5; i * i <= n; i = i + 6) 
-        if (n % i == 0 || n % (i + 2) == 0) 
-            return false; 
-  
-    return true;  
+int toInteger(string str){
+    int n;
+    stringstream ss;
+    ss << str;
+    ss >> n;
+    return n;
+}
+
+// Checks if prime by simple trial division
+bool isPrime(unsigned int n){
+    if (n % 2 == 0) return false;
+    for (int i = 3; i*i < n; i+=2){
+        if (n % i == 0) return false;
+    }
+    return true;
+}
+
+bool isTriangular(int n){
+    if (n < 0){
+        cout << "[!] isTriangular(n): Ensure n > 0" << endl;
+        return false;
+    }
+    int sum = 0;
+    for (int i = 1; sum <= n; i++){
+        sum += i;
+        if (sum == n) return true;
+    }
+    return false;
+
 }

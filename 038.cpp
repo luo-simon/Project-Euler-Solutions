@@ -31,7 +31,7 @@ int main(){
             n++;
             str += to_string(i * n);
         }
-        if (isPandigital(str, 9))
+        if (isPandigital(toInteger(str)))
             largest = str;
     }
     cout << largest << endl;
