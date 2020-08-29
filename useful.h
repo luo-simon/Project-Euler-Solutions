@@ -81,7 +81,7 @@ void sieveOfErasthones(bool *sieve, int size){
 }
 
 // Takes in set<unsigned int> and inserts primes up to limit
-// Slightly different to sieveOfErasthones() function
+// Slightly different to sieveOfErasthones() function (slower)
 void generatePrimes(set<unsigned int> &primes, unsigned int limit){
     primes.insert(2);
     for (int i = 3; i <= limit; i+= 2){
@@ -175,26 +175,38 @@ bool isPrime(unsigned int n){
     return true;
 }
 
-bool isTriangular(int n){
-    if (n < 0){
-        cout << "[!] isTriangular(n): Ensure n > 0" << endl;
+// Tests if number is a triangular number
+// by finding the inverse of the nth term function 
+// https://en.wikipedia.org/wiki/Triangular_number
+bool isTriangular(unsigned int x){
+    if (x < 0){
+        cout << "[!] isTriangular(x): Ensure x > 0" << endl;
         return false;
     }
-    int sum = 0;
-    for (int i = 1; sum <= n; i++){
-        sum += i;
-        if (sum == n) return true;
-    }
-    return false;
+    double n = (sqrt(8*x + 1) - 1) / 2;
+    return n == (int)n;
 }
 
 // Tests if number is a pentagonal number
+// by finding the inverse of the nth term function 
 // https://en.wikipedia.org/wiki/Pentagonal_number
-bool isPentagonal(int x){
+bool isPentagonal(unsigned long long x){
     if (x < 0){
-        cout << "[!] isPentagonal(n): Ensure n > 0" << endl;
+        cout << "[!] isPentagonal(x): Ensure x > 0" << endl;
         return false;
     }
-    double n = (sqrt(24*x + 1) + 1) / 6;
+    double n = (sqrt(24*x + 1) + 1.0) / 6.0;
+    return n == (int)n;
+}
+
+// Tests if number is a hexagonal number
+// by finding the inverse of the nth term function 
+// https://en.wikipedia.org/wiki/Hexagonal_number
+bool isHexagonal(unsigned int x){
+    if (x < 0){
+        cout << "[!] isHexagonal(x): Ensure x > 0" << endl;
+        return false;
+    }
+    double n = (sqrt(8*x + 1) + 1) / 4;
     return n == (int)n;
 }
