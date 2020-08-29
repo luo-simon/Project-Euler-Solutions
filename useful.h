@@ -142,24 +142,24 @@ string toBinary(int n){
 //     return false;
 // }
 
-bool isPandigital(unsigned int n){
-    bool digits[] = {0,0,0,0,0,0,0,0,0};
+bool isPandigital(unsigned long long int n, bool includeZero = false){
+    bool digits[] = {0,0,0,0,0,0,0,0,0,0};
     int length = 0;
     while (n != 0){
-        if (n % 10 == 0)
+        if (!includeZero && n % 10 == 0)
             return false;
-        digits[(n % 10) - 1] = true;
+        digits[(n % 10)] = true;
         n /= 10;
         length++;
     }
-    if (length > 9) return false;
-    for (int i = 0; i < length; i++)
+    if (length > 9 + includeZero) return false;
+    for (int i = !includeZero; i <= length; i++)
         if (!digits[i]) return false;
     return true;
 }
 
-int toInteger(string str){
-    int n;
+unsigned long long int toInteger(string str){
+    unsigned long long int n;
     stringstream ss;
     ss << str;
     ss >> n;
@@ -186,5 +186,15 @@ bool isTriangular(int n){
         if (sum == n) return true;
     }
     return false;
+}
 
+// Tests if number is a pentagonal number
+// https://en.wikipedia.org/wiki/Pentagonal_number
+bool isPentagonal(int x){
+    if (x < 0){
+        cout << "[!] isPentagonal(n): Ensure n > 0" << endl;
+        return false;
+    }
+    double n = (sqrt(24*x + 1) + 1) / 6;
+    return n == (int)n;
 }
